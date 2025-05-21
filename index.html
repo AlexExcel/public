@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Multi-week Delivery Booking Calendar</title>
+  <link rel="stylesheet" type="text/css" href="./styles.css">
+  <script>
+    // Remove Firebase if you're switching to local storage only
+    // Remove storeBookingData and clearBookingForm from here – handled in script.js
+    function clearCalendarContent() {
+      if (confirm("Are you sure you want to clear all bookings?")) {
+        localStorage.removeItem("bookings");
+        location.reload();
+      }
+    }
+  </script>
+</head><body>
+  <h1>Delivery Booking</h1>
+  <div style="margin-bottom: 20px;">
+    <button onclick="window.print()">Print Page</button>
+    <button onclick="clearCalendarContent()">Clear Calendar</button>
+    <button onclick="window.location.href='../main.html'" style="background-color: #ef4444; color: white; padding: 8px 12px; border: none; border-radius: 4px; cursor: pointer;">Back to Main</button>
+  </div>
+
+  <div class="container">
+    <div class="week-links">
+      <h3>Go to Week</h3>
+      <ul id="week-nav"></ul>
+    </div>
+
+    <div class="calendar-grid" id="calendar"></div>
+  </div>
+
+  <!-- Modal for booking -->
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <h3>Book Delivery Slot: <span id="modal-time"></span></h3>
+      <form id="booking-form">
+        <label for="supplier">Company:</label>
+        <select id="supplier">
+          <option value="2M Foods">2M Foods</option>
+          <option value="A & J Audhali">A & J Audhali</option>
+          <option value="AAK (Uk) Limited (Hull)">AAK (Uk) Limited (Hull)</option>
+          <option value="AAK Foods (Runcorn)">AAK Foods (Runcorn)</option>
+          <option value="Agora Greek Delicacies Ltd">Agora Greek Delicacies Ltd</option>
+          <option value="AJH Sunderland Ltd">AJH Sunderland Ltd</option>
+          <option value="Andana Foods Ltd">Andana Foods Ltd</option>
+  <option value="Arla Foods Ltd">Arla Foods Ltd</option>
+    <option value="Asad Bakery LTD">Asad Bakery LTD</option>
+    <option value="Bako Northern">Bako Northern</option>
+    <option value="BB Catering Supplies">BB Catering Supplies</option>
+    <option value="Becsco Ltd">Becsco Ltd</option>
+    <option value="Bidfood">Bidfood</option>
+    <option value="Bradley Paper Converters (BPC) Ltd">Bradley Paper Converters (BPC) Ltd</option>
+    <option value="Bray Foods">Bray Foods</option>
+    <option value="Breading & Coating Ltd">Breading & Coating Ltd</option>
+    <option value="Cadismoor Ltd">Cadismoor Ltd</option>
+    <option value="Carrs Flour Green">Carrs Flour Green</option>
+    <option value="Central Foods Ltd">Central Foods Ltd</option>
+    <option value="CK Food Processing">CK Food Processing</option>
+    <option value="Coca Cola Europacific Partners">Coca Cola Europacific Partners</option>
+    <option value="Country Harvest Farm Foods Ltd">Country Harvest Farm Foods Ltd</option>
+    <option value="Dairy Partners">Dairy Partners</option>
+    <option value="Dalziel Ltd T/A Yayla">Dalziel Ltd T/A Yayla</option>
+    <option value="Drivers Pickles & Vinegar">Drivers Pickles & Vinegar</option>
+    <option value="Dydo Drinco UK Ltd">Dydo Drinco UK Ltd</option>
+    <option value="Empire UK Foods Ltd">Empire UK Foods Ltd</option>
+    <option value="Epsicon Ventures Ltd">Epsicon Ventures Ltd</option>
+    <option value="Euro Foods (GB) Ltd">Euro Foods (GB) Ltd</option>
+    <option value="Euro Packaging">Euro Packaging</option>
+    <option value="Euronat International Ltd">Euronat International Ltd</option>
+    <option value="Farsi Foods Ltd">Farsi Foods Ltd</option>
+    <option value="Flatbread Co">Flatbread Co</option>
+    <option value="Forrest Fresh Foods Ltd">Forrest Fresh Foods Ltd</option>
+    <option value="Four Seasons Food Supplies Ltd">Four Seasons Food Supplies Ltd</option>
+    <option value="Four Stones Paper Mill Co">Four Stones Paper Mill Co</option>
+    <option value="Freeman Catering Butchers">Freeman Catering Butchers</option>
+    <option value="Fresco Food">Fresco Food</option>
+    <option value="FW Packaging (Northern) Ltd">FW Packaging (Northern) Ltd</option>
+    <option value="G R Wright & Sons Ltd">G R Wright & Sons Ltd</option>
+    <option value="Gima UK">Gima UK</option>
+    <option value="Greek Bazaar Ltd">Greek Bazaar Ltd</option>
+    <option value="H Smith Food Group Plc">H Smith Food Group Plc</option>
+    <option value="H.J.Heinz Food UK Limited">H.J.Heinz Food UK Limited</option>
+    <option value="Hargreaves Quality Foods Ltd">Hargreaves Quality Foods Ltd</option>
+    <option value="Herald Plastic Ltd">Herald Plastic Ltd</option>
+    <option value="ICS (UK) Ltd">ICS (UK) Ltd</option>
+    <option value="J Sykes & Sons Ltd">J Sykes & Sons Ltd</option>
+    <option value="J.R Holland Food Services Ltd">J.R Holland Food Services Ltd</option>
+    <option value="James Burden Ltd">James Burden Ltd</option>
+    <option value="Jan Zandbergen BV">Jan Zandbergen BV</option>
+    <option value="Jeff the Chef">Jeff the Chef</option>
+    <option value="Kingfry Meat Products Ltd">Kingfry Meat Products Ltd</option>
+    <option value="Kiril Mischeff Ltd">Kiril Mischeff Ltd</option>
+    <option value="Leicester Bakery Ltd">Leicester Bakery Ltd</option>
+    <option value="MA Brothers">MA Brothers</option>
+    <option value="Magnum Packaging (NE) Ltd">Magnum Packaging (NE) Ltd</option>
+    <option value="Martin Mathews">Martin Mathews</option>
+    <option value="Maysan Foods Ltd">Maysan Foods Ltd</option>
+    <option value="McCain Foods (GB) Ltd">McCain Foods (GB) Ltd</option>
+    <option value="Meadow Vale Foods">Meadow Vale Foods</option>
+    <option value="Mikado Foods (UK) Ltd">Mikado Foods (UK) Ltd</option>
+    <option value="Minster Fine Foods*">Minster Fine Foods*</option>
+    <option value="Mir Packaging Ltd">Mir Packaging Ltd</option>
+    <option value="MJM Foods (Wigan) Ltd">MJM Foods (Wigan) Ltd</option>
+    <option value="Multex Chemicals Ltd">Multex Chemicals Ltd</option>
+    <option value="Olympic Oil Ltd">Olympic Oil Ltd</option>
+    <option value="Ornua Ingredients Europe (UK) Ltd">Ornua Ingredients Europe (UK) Ltd</option>
+    <option value="Pan Euro Foods">Pan Euro Foods</option>
+    <option value="Pan United Ltd">Pan United Ltd</option>
+    <option value="Paragon Foodservice Ltd">Paragon Foodservice Ltd</option>
+    <option value="Pasco Foods Ltd (Pasco)">Pasco Foods Ltd (Pasco)</option>
+    <option value="Pentagon Food Group UK">Pentagon Food Group UK</option>
+    <option value="Prime Buys">Prime Buys</option>
+    <option value="Riva Foods Ltd">Riva Foods Ltd</option>
+    <option value="Satco Plastics Ltd">Satco Plastics Ltd</option>
+    <option value="Seamark Plc">Seamark Plc</option>
+    <option value="Smilde Food Group Ltd">Smilde Food Group Ltd</option>
+    <option value="Spice Technology Ltd">Spice Technology Ltd</option>
+    <option value="Star Catering Supplies Ltd">Star Catering Supplies Ltd</option>
+    <option value="T Quality">T Quality</option>
+    <option value="Tasty Bake Ltd">Tasty Bake Ltd</option>
+    <option value="Tasty Chicken Products">Tasty Chicken Products</option>
+    <option value="The Burger Manufacturing Co Ltd">The Burger Manufacturing Co Ltd</option>
+    <option value="The Crucial Sauce Company">The Crucial Sauce Company</option>
+    <option value="The Salt Company Ltd">The Salt Company Ltd</option>
+    <option value="Theos Food Company">Theos Food Company</option>
+    <option value="Tyson Foods">Tyson Foods</option>
+    <option value="Universal Meat Company">Universal Meat Company</option>
+    <option value="Utan Gargan Packaging Solutions">Utan Gargan Packaging Solutions</option>
+    <option value="Vivazon Ltd T/A I'm a Natural">Vivazon Ltd T/A I'm a Natural</option>
+    <option value="Vriesekoop Ltd">Vriesekoop Ltd</option>
+    <option value="Woodward Food Services Ltd">Woodward Food Services Ltd</option>
+    <option value="Youngs Quality Food Ltd">Youngs Quality Food Ltd</option>
+  </select>
+</label>
+        </select>
+        <label for="pos">PO Number:</label>
+        <input type="number" id="pos" required>
+        <label for="collection">Number of Pallets:</label>
+        <input type="number" id="collection" required>
+        <label>Handball Required:</label>
+        <div style="margin-bottom: 10px;">
+          <label><input type="radio" name="handball" value="Yes" required> Yes</label>
+          <label style="margin-left: 10px;"><input type="radio" name="handball" value="No" required> No</label>
+        </div>
+        <label for="notes">Additional Notes:</label>
+        <textarea id="notes"></textarea>
+        <label for="status">Status:</label>
+        <select id="status">
+          <option value="Booked In">Booked In</option>
+          <option value="Received">Received</option>
+          <option value="Not Booked In">Not Booked In</option>
+        </select>
+        <button type="submit">Book</button>
+        <button type="button" onclick="closeModal()">Cancel</button>
+        <button type="button" onclick="clearBookingForm()">Clear Form</button>
+        <button type="button" id="delete-btn" style="background-color: #f66; color: white;">Delete Booking</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="./script.js"></script>
+</body>
+</html>
